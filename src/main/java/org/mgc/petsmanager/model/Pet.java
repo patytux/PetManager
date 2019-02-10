@@ -41,15 +41,15 @@ public class Pet {
     /**
      * @return the type
      */
-    public String getAnimalType() {
+    public String getType() {
         return type;
     }
 
     /**
-     * @param animalType the type to set
+     * @param type the type to set
      */
-    public void setAnimalType(String animalType) {
-        this.type = animalType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**

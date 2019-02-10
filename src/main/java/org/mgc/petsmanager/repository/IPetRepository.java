@@ -21,4 +21,6 @@ public interface IPetRepository {
 
     public List<Pet> getPets();
 
+    public boolean delete(Pet pet);
+
 }

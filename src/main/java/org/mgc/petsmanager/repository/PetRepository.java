@@ -46,4 +46,9 @@ public class PetRepository implements IPetRepository {
         return null;
     }
 
+    @Override
+    public boolean delete(Pet pet) {
+        return this.pets.remove(pet);
+    }
+
 }

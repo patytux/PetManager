@@ -39,7 +39,7 @@ public class Utils {
             while ((line = br.readLine()) != null) {
                 String[] petLine = line.split(cvsSplitBy);
                 Pet pet = new Pet();
-                pet.setAnimalType(petLine[0]);
+                pet.setType(petLine[0]);
                 pet.setName(petLine[1]);
                 pet.setGender(Gender.valueOf(petLine[2]));
                 pet.setLastUpdate(DATE_FORMAT.parse(petLine[3]));

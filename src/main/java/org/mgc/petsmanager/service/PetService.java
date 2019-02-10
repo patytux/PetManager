@@ -27,9 +27,13 @@ public class PetService {
                 ? this.iPetRepository.insert(pet) : null;
     }
 
+    public boolean delete(Pet pet) {
+        return this.iPetRepository.delete(pet);
+    }
+
     public static void printPet(Pet pet) {
         System.out.println("pet ID: " + pet.getId()
-                + " Type: " + pet.getAnimalType()
+                + " Type: " + pet.getType()
                 + " Name: " + pet.getName()
                 + " Gender: " + pet.getGender()
                 + " Last Update: " + pet.getLastUpdate());

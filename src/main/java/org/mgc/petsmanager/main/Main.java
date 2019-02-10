@@ -6,6 +6,7 @@
 package org.mgc.petsmanager.main;
 
 import java.util.List;
+import org.mgc.petsmanager.model.Gender;
 
 import org.mgc.petsmanager.model.Pet;
 import org.mgc.petsmanager.repository.IPetRepository;
@@ -24,6 +25,15 @@ public class Main {
         PetService petService = new PetService(petRepository);
         if (args.length > 0) {
             loadFromCSV(args[0], petService);
+            System.out.println("-------------");
+            Pet petToDelete = new Pet();
+            petToDelete.setId(19);
+            petToDelete.setType("DOG");
+            petToDelete.setName("Lucas");
+            petToDelete.setGender(Gender.M);
+            petService.delete(petToDelete);
+            petService.printPets();
+
         } else {
             System.out.println("Invalid arguments");
         }
