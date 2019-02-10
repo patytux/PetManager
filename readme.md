@@ -1,9 +1,11 @@
 # Pets Manager
 
 To build the project use maven
+
 	- mvn clean install
 
 To execute 
+
 	- java -jar target/petsManager-1.0-SNAPSHOT.jar PATH/pets.csv name=princess
 
 
