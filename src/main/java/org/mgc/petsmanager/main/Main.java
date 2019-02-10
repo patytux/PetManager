@@ -5,8 +5,9 @@
  */
 package org.mgc.petsmanager.main;
 
+import java.util.HashMap;
 import java.util.List;
-import org.mgc.petsmanager.model.Gender;
+import java.util.Map;
 
 import org.mgc.petsmanager.model.Pet;
 import org.mgc.petsmanager.repository.IPetRepository;
@@ -23,17 +24,14 @@ public class Main {
     public static void main(String[] args) {
         IPetRepository petRepository = new PetRepository();
         PetService petService = new PetService(petRepository);
-        if (args.length > 0) {
+        if (args.length > 1 && args.length < 4) {
             loadFromCSV(args[0], petService);
-            System.out.println("-------------");
-            Pet petToDelete = new Pet();
-            petToDelete.setId(19);
-            petToDelete.setType("DOG");
-            petToDelete.setName("Lucas");
-            petToDelete.setGender(Gender.M);
-            petService.delete(petToDelete);
-            petService.printPets();
-
+            try {
+                Map<String, String> criteria = extractCriteria(args);
+                PetService.printPets(petService.getPetsByCriteria(criteria));
+            } catch (IllegalArgumentException ex) {
+                System.out.println("Invalid arguments");
+            }
         } else {
             System.out.println("Invalid arguments");
         }
@@ -45,6 +43,18 @@ public class Main {
         for (Pet pet : pets) {
             petService.save(pet);
         }
-        petService.printPets();
+    }
+
+    private static Map extractCriteria(String[] args) {
+        Map<String, String> criteria = new HashMap();
+        for (int i = 1; i < args.length; i++) {
+            String[] values = args[i].split("=");
+            if (values.length == 2) {
+                criteria.put(values[0], values[1]);
+            } else {
+                throw new IllegalArgumentException("Invalid criteria");
+            }
+        }
+        return criteria;
     }
 }

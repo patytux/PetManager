@@ -7,6 +7,7 @@ package org.mgc.petsmanager.repository;
 
 import java.util.List;
 
+import org.mgc.petsmanager.model.Gender;
 import org.mgc.petsmanager.model.Pet;
 
 /**
@@ -15,12 +16,18 @@ import org.mgc.petsmanager.model.Pet;
  */
 public interface IPetRepository {
 
-    public Pet insert(Pet pet);
+    Pet insert(Pet pet);
 
-    public Pet getPet(long id);
+    Pet getPet(long id);
 
-    public List<Pet> getPets();
+    List<Pet> getPets();
 
-    public boolean delete(Pet pet);
+    boolean delete(Pet pet);
+
+    List<Pet> getPetsByName(String name);
+
+    List<Pet> getPetsByType(String type);
+
+    List<Pet> getPetsByGenderAndType(Gender gender, String type);
 
 }

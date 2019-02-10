@@ -6,8 +6,11 @@
 package org.mgc.petsmanager.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.mgc.petsmanager.model.Gender;
 import org.mgc.petsmanager.model.Pet;
 
 /**
@@ -49,6 +52,50 @@ public class PetRepository implements IPetRepository {
     @Override
     public boolean delete(Pet pet) {
         return this.pets.remove(pet);
+    }
+
+    @Override
+    public List<Pet> getPetsByName(String name) {
+        List<Pet> petsSearched = new ArrayList<>();
+        for (Pet pet : this.pets) {
+            if (pet.getName().toLowerCase().contains(name.toLowerCase())) {
+                petsSearched.add(pet);
+            }
+        }
+        return petsSearched;
+    }
+
+    @Override
+    public List<Pet> getPetsByType(String type) {
+        List<Pet> petsSearched = new ArrayList<>();
+        for (Pet pet : this.pets) {
+            if (pet.getType().toLowerCase().equals(type.toLowerCase())) {
+                petsSearched.add(pet);
+            }
+        }
+        return sortByLastUpdate(petsSearched);
+    }
+
+    @Override
+    public List<Pet> getPetsByGenderAndType(Gender gender, String type) {
+        List<Pet> petsSearched = new ArrayList<>();
+        for (Pet pet : this.pets) {
+            if (pet.getType().toLowerCase().equals(type.toLowerCase()) && pet.getGender().equals(gender)) {
+                petsSearched.add(pet);
+            }
+        }
+        return sortByLastUpdate(petsSearched);
+    }
+
+    private List<Pet> sortByLastUpdate(List<Pet> pets) {
+        Collections.sort(pets, new Comparator<Pet>() {
+            @Override
+            public int compare(Pet pet1, Pet pet2) {
+                return pet2.getLastUpdate().compareTo(pet1.getLastUpdate());
+            }
+
+        });
+        return pets;
     }
 
 }
